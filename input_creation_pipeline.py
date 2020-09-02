@@ -14,6 +14,7 @@ import numpy as np
 # count the number of introns and exons in each, and balance into final files
 
 mega_file = open("mega_file", "w+")
+sequence_length = 300
 
 introns = 0
 cds_exons = 0
@@ -30,14 +31,14 @@ for i in range (1, 5):
     fileName = fileDir + "/" + file
     for record in SeqIO.parse(fileName, "fasta"):
       myseq = record.seq
-      if (str(myseq).count('N') > 0 or str(myseq).count('n') > 0 or len(myseq) <= 300 or (file == "introns.fa" and len(myseq) <= 500)):
+      if (str(myseq).count('N') > 0 or str(myseq).count('n') > 0 or len(myseq) <= sequence_length or (file == "introns.fa" and len(myseq) <= sequence_length + 200)):
         pass
       else:
         if (file == "cds_exons.fa"):
           cds_exons += 1
           sequence = str(myseq).upper()
-          sequence = sequence[0:300]
-          if (len(sequence) != 300):
+          sequence = sequence[0:sequence_length]
+          if (len(sequence) != sequence_length):
             print("ERROR")
             break
           mega_file.write(sequence + "\n")
@@ -45,8 +46,8 @@ for i in range (1, 5):
           three_prime_exons += 1
           sequence = str(myseq).lower()
           sequence = sequence[0].upper() + sequence[1:]
-          sequence = sequence[0:300]
-          if (len(sequence) != 300):
+          sequence = sequence[0:sequence_length]
+          if (len(sequence) != sequence_length):
             print("ERROR")
             break
           mega_file.write(sequence + "\n")
@@ -54,8 +55,8 @@ for i in range (1, 5):
           five_prime_exons += 1
           sequence = str(myseq).lower()
           sequence = sequence[0] + sequence[1].upper() + sequence[2:]
-          sequence = sequence[0:300]
-          if (len(sequence) != 300):
+          sequence = sequence[0:sequence_length]
+          if (len(sequence) != sequence_length):
             print("ERROR")
             break
           mega_file.write(sequence + "\n")
@@ -63,11 +64,11 @@ for i in range (1, 5):
           introns += 1
           sequence = str(myseq).lower()
           sequence = sequence[100:len(sequence) - 100]
-          diff = len(sequence) - 300
+          diff = len(sequence) - sequence_length
           random = np.random.randint(diff, size=(1))
           random_num = random[0]
-          sequence = sequence[random_num:300+random_num]
-          if (len(sequence) != 300):
+          sequence = sequence[random_num:sequence_length+random_num]
+          if (len(sequence) != sequence_length):
             print("ERROR")
             break
           mega_file.write(sequence + "\n")
