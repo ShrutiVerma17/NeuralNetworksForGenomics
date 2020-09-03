@@ -26,7 +26,7 @@ three_prime_exons = 0
 
 for i in range (1, 5):
   fileDir = "/content/drive/My Drive/Wu Lab Research/Chr" + str(i)
-  files_to_parse = ["cds_exons.fa", "cds_3_prime.fa", "cds_5_prime.fa", "introns.fa"]
+  files_to_parse = ["cds_exons.fa", "utr_3_prime.fa", "utr_5_prime.fa", "introns.fa"]
   for file in files_to_parse:
     fileName = fileDir + "/" + file
     for record in SeqIO.parse(fileName, "fasta"):
@@ -42,7 +42,7 @@ for i in range (1, 5):
             print("ERROR")
             break
           mega_file.write(sequence + "\n")
-        elif (file == "cds_3_prime.fa"):
+        elif (file == "utr_3_prime.fa"):
           three_prime_exons += 1
           sequence = str(myseq).lower()
           sequence = sequence[0].upper() + sequence[1:]
@@ -51,7 +51,7 @@ for i in range (1, 5):
             print("ERROR")
             break
           mega_file.write(sequence + "\n")
-        elif (file == "cds_5_prime.fa"):
+        elif (file == "utr_5_prime.fa"):
           five_prime_exons += 1
           sequence = str(myseq).lower()
           sequence = sequence[0] + sequence[1].upper() + sequence[2:]
