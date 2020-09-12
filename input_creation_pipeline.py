@@ -18,7 +18,7 @@ def parse_args():
 def main():
     args=parse_args()
     my_dir = args.dir
-    length = args.length
+    length = int(args.length)
     # open each of the 10 chromosome files
     # loop through them, grabbing the first 300 of their sequences (random) and the last 300 and adding it to two separate files, one called "first_300_all" and one called "second_300_all"
     # count the number of introns and exons in each, and balance into final files

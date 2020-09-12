@@ -1,5 +1,8 @@
 # NeuralNetworksForGenomics
 
+wrapper.sh: Script file that takes in three arguments, the directory where the original fasta files are located, the sequence length desired, and whether you want to run the neural network on the balanced file or the imbalanced (true implies balanced, false implies imbalanced)
+
+
 one_hot_encode_dna_update_categorical.py: File that does the one hot encoding for the input DNA sequences and that comes up with the labels for each DNA sequence. Important: it expects that all introns come in with every nucleotide lowercase and assigns that sequence a label of 0. Similarily, it expects cds exons to come in with every nucleotide capitalized and assigns it a label of 1, 3 prime UTR exons to come in with only the first base capitalized and assigns it to a label of 2, and 5 prime UTR exons to come in with only the second base capitalized and assigns it to a label of 3.
 
 categorical_neural_network.py: Convolutional neural network that I wrote to do categorical prediction. To run this, you first have to go through the input creation pipeline script described below. At the end of that script, you'll have a large file composed of many sequences (cds exons, introns, 3 prime UTR exons, and 5 prime UTR exons). All you need to do to run this neural network is replace the name for your input file.

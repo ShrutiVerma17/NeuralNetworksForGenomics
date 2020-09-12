@@ -27,7 +27,7 @@ def main():
     numpy.set_printoptions(threshold=numpy.inf)
     args=parse_args()
     my_dir = args.dir
-    length = args.length
+    length = int(args.length)
     balanced = args.balanced
     
     seqlen = length
