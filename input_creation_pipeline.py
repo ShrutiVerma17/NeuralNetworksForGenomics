@@ -22,7 +22,24 @@ def main():
     # open each of the 10 chromosome files
     # loop through them, grabbing the first 300 of their sequences (random) and the last 300 and adding it to two separate files, one called "first_300_all" and one called "second_300_all"
     # count the number of introns and exons in each, and balance into final files
-    
+
+    chr1_list = []
+    chr2_list = []
+    chr3_list = []
+    chr4_list = []
+    for i in range(1, 5):
+      valid_entries = open("chr"+ str(i) + "_valid")
+      for line in valid_entries:
+        if i == 1:
+          chr1_list = line.split("\t")
+        if i == 2:
+          chr2_list = line.split("\t")
+        if i == 3:
+          chr3_list = line.split("\t")
+        if i == 4:
+          chr4_list = line.split("\t")
+      valid_entries.close()   
+ 
     mega_file = open("mega_imbalanced_file", "w+")
     sequence_length = length
     
@@ -41,6 +58,20 @@ def main():
         fileName = fileDir + "/" + file
         for record in SeqIO.parse(fileName, "fasta"):
           myseq = record.seq
+          curr_id = str(record.id).split(" ")[0][16:]
+          if (file != "introns.fa"):
+            if i == 1:
+              if curr_id not in chr1_list:
+                continue
+            if i == 2:
+              if curr_id not in chr2_list:
+                continue
+            if i == 3:
+              if curr_id not in chr3_list:
+                continue
+            if i == 4:
+              if curr_id not in chr4_list:
+                continue
           if (str(myseq).count('N') > 0 or str(myseq).count('n') > 0 or len(myseq) <= sequence_length or (file == "introns.fa" and len(myseq) <= sequence_length + 200)):
             pass
           else:
